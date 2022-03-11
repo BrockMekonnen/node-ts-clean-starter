@@ -17,8 +17,10 @@ type Repository<
 type ApplicationService<P, R> = (payload: P) => Promise<R>;
 
 type DataMapper<AR extends AggregateRoot<any>, DATA> = {
-	toEntity(data: DATA): AR;
-	toData(entity: AR): DATA;
+	toDomainEntity(ormEntity: DATA): AR;
+	toDomainEntities(ormEntities: any[]): AR[];
+	toOrmEntity(domainEntity: AR): DATA;
+	toOrmEntities(domainEntities: AR[]): DATA[];
 };
 
 export {

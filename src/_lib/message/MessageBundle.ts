@@ -152,7 +152,7 @@ const messageSource = <T extends MessageParameters>(
 	src: MessageSource<T> | FlattenMessageSource<MessageSource<T>>
 ): typeof src => src;
 
-const makeMessegeBundle = <T extends MessageParameters>(
+const makeMessageBundle = <T extends MessageParameters>(
 	messageSrc:
 		| DeepPartial<MessageSource<T>>
 		| Partial<FlattenMessageSource<MessageSource<T>>> = {}
@@ -205,5 +205,5 @@ const makeMessegeBundle = <T extends MessageParameters>(
 	};
 };
 
-export { makeMessegeBundle, messageSource };
+export { makeMessageBundle, messageSource };
 export type { MessageParameters, FlattenParameters, None };
