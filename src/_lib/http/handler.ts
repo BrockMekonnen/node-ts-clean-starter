@@ -10,10 +10,14 @@ const handler = (handler: ControllerHandler): RequestHandler => {
 	return (req, res, next) => {
 		if (!("container" in req)) {
 			throw new Error(
-				"Can't find the request contianer! Have you registered the `requestContainer` middleware?"
+				"Can't find the request container! Have you registered the `requestContainer` middleware?"
 			);
-
-			// const injectedHandler = req.container.build(resolver);
 		}
+
+		const injectedHandler = req.container.build(resolver);
+
+		return runAsync(injectedHandler)(req, res, next);
 	};
 };
+
+export { handler };

@@ -16,13 +16,6 @@ type ServerConfig = {
 	};
 };
 
-type ServerRegistry = {
-	requestId?: string;
-	server: Application;
-	rootRouter: Router;
-	apiRouter: Router;
-};
-
 const server = makeModule(
 	"server",
 	async ({
@@ -85,6 +78,13 @@ const server = makeModule(
 		};
 	}
 );
+
+type ServerRegistry = {
+	requestId?: string;
+	server: Application;
+	rootRouter: Router;
+	apiRouter: Router;
+};
 
 export { server };
 export type { ServerRegistry, ServerConfig };

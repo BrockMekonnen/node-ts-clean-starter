@@ -25,7 +25,7 @@ type Query<F = void> = F extends Filter
 	  }>
 	: never;
 
-type PaginatedQuery<F = void> = Query<F> &
+type PaginatedQuery =
 	Readonly<{
 		pagination: Pagination;
 	}>;
