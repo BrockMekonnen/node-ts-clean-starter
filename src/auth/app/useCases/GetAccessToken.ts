@@ -27,7 +27,7 @@ const makeGenerateToken =
 			);
 		}
 
-		return authRepository.generate({ uid: user.id, scope: user.role });
+		return authRepository.generate({ uid: user.id.value, scope: user.role });
 	};
 
 export { makeGenerateToken };

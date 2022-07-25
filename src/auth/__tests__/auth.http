@@ -1,0 +1,15 @@
+@baseUrl = http://localhost:3000/api
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI5NTA4MzAzMC1hMDAzLTQ0ZmUtODM0Ny1jYzhhOGQ1YWVlYzgiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NTczODI4NDB9.lV-JJjYblUrmhNLfvK_FS1bVtH2SrXVGwEmZsNnDNLQ
+
+###
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "phone": "110-110-110",
+    "password": "testtest"
+}
+
+###
+GET {{baseUrl}}/auth
+Authorization: {{token}}

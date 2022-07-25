@@ -1,0 +1,23 @@
+@baseUrl = http://localhost:3000/api
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI5NTA4MzAzMC1hMDAzLTQ0ZmUtODM0Ny1jYzhhOGQ1YWVlYzgiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NTczODI2MTR9.pHNmFnoPn0LFrnNr7p9uMgPkJuCVWP1hyfOGJQs4wmA
+###
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "phone": "110-110-110",
+    "email": "JaneDoe@test.com",
+    "password": "12131213",
+    "gender": "Female",
+    "role": ["Employee"]
+}
+
+###
+GET {{baseUrl}}/users/me
+Authorization: {{token}}
+
+### 
+GET {{baseUrl}}/users
+Authorization: {{token}}

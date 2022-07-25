@@ -17,7 +17,7 @@ type VerifyToken = ApplicationService<string, Credentials>;
 const makeVerifyToken =
 	({ authRepository }: Dependencies): VerifyToken =>
 	async (payload: string) => {
-		const decoded = await authRepository.decode(payload, );
+		const decoded = await authRepository.decode(payload);
 
 		if (!decoded) {
 			throw BusinessError.create(

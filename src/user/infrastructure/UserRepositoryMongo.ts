@@ -72,7 +72,7 @@ const makeMongoUserRepository = ({
 				},
 				{
 					$skip:
-						Math.max(1 - pagination.page, 0) * pagination.pageSize,
+						Math.max(pagination.page - 1, 0) * pagination.pageSize,
 				},
 				{
 					$limit: pagination.pageSize,
@@ -90,7 +90,7 @@ const makeMongoUserRepository = ({
 				pageSize: pagination.pageSize,
 				totalElements,
 				current: pagination.page,
-				first: pagination.pate === 1,
+				first: pagination.page === 1,
 				last: pagination.page === totalPages,
 			},
 		};
