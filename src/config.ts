@@ -25,7 +25,7 @@ const config: Configuration = {
   },
   mongodb: {
     database: envString('DB_NAME', 'blog'),
-    host: envString('DB_HOST', 'mongodb://localhost:27017'),
+    host: envString('DB_HOST', 'mongodb://127.0.0.1:27017'),
     username: envString('DB_USER', 'blog'),
     password: envString('DB_PASS', 'blog'),
   },
