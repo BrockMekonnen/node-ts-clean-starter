@@ -5,38 +5,32 @@ import { UserSchema } from "./UserCollection";
 import { UserIdProvider } from "./UserIdProvider";
 
 const UserMapper: DataMapper<User.Type, UserSchema> = {
-	toOrmEntity: (domainEntity: User.Type) => ({
-		_id: from(domainEntity.id.value),
-		firstName: domainEntity.firstName,
-		lastName: domainEntity.lastName,
-		phone: domainEntity.phone,
-		email: domainEntity.email,
-		password: domainEntity.password,
-		gender: domainEntity.gender,
-		role: domainEntity.role,
-		createdAt: domainEntity.createdAt,
-		updatedAt: domainEntity.updatedAt,
-		version: domainEntity.version,
+	toData: (entity: User.Type) => ({
+		_id: from(entity.id.value),
+		firstName: entity.firstName,
+		lastName: entity.lastName,
+		phone: entity.phone,
+		email: entity.email,
+		password: entity.password,
+		gender: entity.gender,
+		roles: entity.roles,
+		createdAt: entity.createdAt,
+		updatedAt: entity.updatedAt,
+		version: entity.version,
 	}),
-	toOrmEntities: function (ormEntities: User.Type[]) {
-		return ormEntities.map( entity => this.toOrmEntity(entity));
-	},
-	toDomainEntity: (domainEntity: UserSchema) => ({
-		id: UserIdProvider.create(from(domainEntity._id).toString()),
-		firstName: domainEntity.firstName,
-		lastName: domainEntity.lastName,
-		phone: domainEntity.phone,
-		email: domainEntity.email,
-		password: domainEntity.password,
-		gender: domainEntity.gender,
-		role: domainEntity.role,
-		createdAt: domainEntity.createdAt,
-		updatedAt: domainEntity.updatedAt,
-		version: domainEntity.version,
+	toEntity: (data: UserSchema) => ({
+		id: UserIdProvider.create(from(data._id).toString()),
+		firstName: data.firstName,
+		lastName: data.lastName,
+		phone: data.phone,
+		email: data.email,
+		password: data.password,
+		gender: data.gender,
+		roles: data.roles,
+		createdAt: data.createdAt,
+		updatedAt: data.updatedAt,
+		version: data.version,
 	}),
-	toDomainEntities: function (domainEntities: any[]) {
-		return domainEntities.map( entity => this.toDomainEntity(entity));
-	}
 };
 
 export { UserMapper };

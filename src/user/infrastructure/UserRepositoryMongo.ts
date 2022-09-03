@@ -1,4 +1,3 @@
-import { PaginatedQueryResult } from "@/_lib/CQRS";
 import { from, v4 } from "uuid-mongodb";
 import { User } from "../domain/User";
 import { UserId } from "../domain/UserId";
@@ -11,9 +10,7 @@ type Dependencies = {
 	userCollection: UserCollection;
 };
 
-const makeMongoUserRepository = ({
-	userCollection,
-}: Dependencies): UserRepository => ({
+const makeMongoUserRepository = ({ userCollection }: Dependencies): UserRepository => ({
 	async getNextId(): Promise<UserId> {
 		return Promise.resolve(UserIdProvider.create(v4().toString()));
 	},
@@ -24,7 +21,7 @@ const makeMongoUserRepository = ({
 			throw new Error("User not found");
 		}
 
-		return UserMapper.toDomainEntity(user);
+		return UserMapper.toEntity(user);
 	},
 	async findByPhone(phone: string): Promise<User.Type> {
 		const user = await userCollection.findOne({ phone });
@@ -33,12 +30,12 @@ const makeMongoUserRepository = ({
 			throw new Error("User not found");
 		}
 
-		return UserMapper.toDomainEntity(user);
+		return UserMapper.toEntity(user);
 	},
 	async store(entity: User.Type): Promise<void> {
 		UserIdProvider.validate(entity.id);
 
-		const { _id, version, ...data } = UserMapper.toOrmEntity(entity);
+		const { _id, version, ...data } = UserMapper.toData(entity);
 
 		const count = await userCollection.countDocuments({ _id });
 
@@ -63,37 +60,14 @@ const makeMongoUserRepository = ({
 			version,
 		});
 	},
-	async findUsers(pagination): Promise<PaginatedQueryResult<User.Type[]>> {
-		console.log("pagination: ", pagination);
-		const users = await userCollection
-			.aggregate([
-				{
-					$match: {},
-				},
-				{
-					$skip:
-						Math.max(pagination.page - 1, 0) * pagination.pageSize,
-				},
-				{
-					$limit: pagination.pageSize,
-				},
-			])
-			.toArray();
+	async findByEmail(email): Promise<User.Type> {
+		const user = await userCollection.findOne({ email });
 
-		const totalElements = await userCollection.countDocuments();
-		const totalPages = Math.ceil(totalElements / pagination.pageSize);
+		if (!user) {
+			throw new Error("User not found");
+		}
 
-		return {
-			data: UserMapper.toDomainEntities(users),
-			page: {
-				totalPages,
-				pageSize: pagination.pageSize,
-				totalElements,
-				current: pagination.page,
-				first: pagination.page === 1,
-				last: pagination.page === totalPages,
-			},
-		};
+		return UserMapper.toEntity(user);
 	},
 });
 

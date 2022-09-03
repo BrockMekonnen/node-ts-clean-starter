@@ -1,4 +1,4 @@
-import { GetUser } from "@/user/app/useCases/GetUser";
+import { GetUser } from "@/user/app/usecases/GetUser";
 import { handler } from "@/_lib/http/handler";
 import { Request, Response } from "express";
 

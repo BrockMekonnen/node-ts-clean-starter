@@ -1,5 +1,5 @@
-@baseUrl = http://localhost:3000/api
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI5NTA4MzAzMC1hMDAzLTQ0ZmUtODM0Ny1jYzhhOGQ1YWVlYzgiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NTczODI2MTR9.pHNmFnoPn0LFrnNr7p9uMgPkJuCVWP1hyfOGJQs4wmA
+@baseUrl = http://127.0.0.1:3000/api
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2YmQ4MTUxMC04YTA4LTRiNTAtYmNmNS1iODRmNGE4N2U4NmIiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NjIxOTE4NDd9.x8hZEgVPAO284_d-SqeAy5hgfq9Iuk-Gr60SyuF5fXo
 ###
 POST {{baseUrl}}/users
 Content-Type: application/json
@@ -8,10 +8,10 @@ Content-Type: application/json
     "firstName": "Jane",
     "lastName": "Doe",
     "phone": "110-110-110",
-    "email": "JaneDoe@test.com",
-    "password": "12131213",
+    "email": "janedoe@test.com",
+    "password": "test@test",
     "gender": "Female",
-    "role": ["Employee"]
+    "roles": ["Employee"]
 }
 
 ###

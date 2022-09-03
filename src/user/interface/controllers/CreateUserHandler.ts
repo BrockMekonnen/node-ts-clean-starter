@@ -1,5 +1,5 @@
 
-import { CreateUser } from "@/user/app/useCases/CreateUser";
+import { CreateUser } from "@/user/app/usecases/CreateUser";
 import { handler } from "@/_lib/http/handler";
 import { HttpStatus } from "@/_lib/http/HttpStatus";
 import { makeValidator } from "@/_lib/http/validation/Validator";
@@ -18,7 +18,7 @@ const { getBody } = makeValidator({
 		email: Joi.string().required(),
 		password: Joi.string().required(),
 		gender: Joi.string().valid('Male', 'Female').required(),
-		role: Joi.array().items(Joi.string()).required(),
+		roles: Joi.array().items(Joi.string()).required(),
 	}).required(),
 });
 
@@ -32,7 +32,7 @@ const createUserHandler = handler(
 				email,
 				password,
 				gender,
-				role,
+				roles,
 			} = getBody(req);
 
 			const userId = await createUser({
@@ -42,7 +42,7 @@ const createUserHandler = handler(
 				email,
 				password,
 				gender,
-				role,
+				roles,
 			});
 
 			res.status(HttpStatus.CREATED).json({ id: userId });

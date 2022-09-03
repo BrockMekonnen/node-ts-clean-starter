@@ -9,7 +9,7 @@ type UserSchema = {
 	email: string;
 	password: string;
 	gender: string;
-	role: string[];
+	roles: string[];
 	createdAt: Date;
 	updatedAt: Date;
 	version: number;
@@ -18,7 +18,7 @@ type UserSchema = {
 type UserCollection = Collection<UserSchema>;
 
 const initUserCollection = async (db: Db): Promise<UserCollection> => {
-	const collection: UserCollection = db.collection("user");
+	const collection: UserCollection = db.collection("users");
 
 	await collection.createIndex({ phone: 1 }, { unique: true });
 

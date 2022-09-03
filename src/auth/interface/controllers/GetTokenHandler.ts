@@ -2,7 +2,7 @@ import { GenerateToken } from "@/auth/app/usecases/GetAccessToken";
 import { handler } from "@/_lib/http/handler";
 import { HttpStatus } from "@/_lib/http/HttpStatus";
 import { makeValidator } from "@/_lib/http/validation/Validator";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import Joi from "types-joi";
 
 type Dependencies = {
@@ -11,7 +11,7 @@ type Dependencies = {
 
 const { getBody } = makeValidator({
 	body: Joi.object({
-		phone: Joi.string().required(),
+		email: Joi.string().required(),
 		password: Joi.string().required(),
 	}).required(),
 });
@@ -19,11 +19,11 @@ const { getBody } = makeValidator({
 const generateTokenHandler = handler(
 	({ generateToken }: Dependencies) =>
 		async (req: Request, res: Response) => {
-			const { phone, password } = getBody(req);
+			const { email, password } = getBody(req);
 
-			const accessToken = await generateToken({ phone, password });
+			const result = await generateToken({ email, password });
 
-			res.status(HttpStatus.ACCEPTED).json({ token: accessToken });
+			res.status(HttpStatus.ACCEPTED).json(result);
 		}
 );
 

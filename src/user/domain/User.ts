@@ -12,7 +12,7 @@ namespace User {
 			email: string;
 			password: string;
 			gender: string;
-			role: string[];
+			roles: string[];
 			createdAt: Date;
 			updatedAt: Date;
 			version: number;
@@ -26,7 +26,7 @@ namespace User {
 		email: string;
 		password: string;
 		gender: string;
-		role: string[];
+		roles: string[];
 	}>;
 
 	export const create = (props: UserProps): User => ({

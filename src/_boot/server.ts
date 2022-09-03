@@ -1,89 +1,100 @@
-import express, { Router, Application, json, urlencoded } from "express";
-import { asValue } from "awilix";
-import httpLogger from "pino-http";
-import { createServer } from "http";
-import { requestId } from "@/_lib/http/middlewares/requestId";
-import { requestContainer } from "@/_lib/http/middlewares/requestContainer";
-import { errorHandler } from "@/_lib/http/middlewares/errorHandler";
-import { makeModule } from "@/context";
-import { gracefulShutdown } from "@/_lib/http/middlewares/gracefulShutdown";
-import { errorConverters } from "@/_sharedKernel/interface/http/ErrorConverters";
+import { makeModule } from '@/context';
+import { errorHandler } from '@/_lib/http/middlewares/errorHandler';
+import { gracefulShutdown } from '@/_lib/http/middlewares/gracefulShutdown';
+import { httpLogger, reqStartTimeKey } from '@/_lib/http/middlewares/httpLogger';
+import { requestContainer } from '@/_lib/http/middlewares/requestContainer';
+import { statusHandler } from '@/_lib/http/middlewares/statusHandler';
+import { errorConverters } from '@/_sharedKernel/interface/http/ErrorConverters';
+import { asValue } from 'awilix';
+import cors, { CorsOptions } from 'cors';
+import express, { Application, json, Router, urlencoded } from 'express';
+import helmet from 'helmet';
+import { createServer, Server } from 'http';
 
 type ServerConfig = {
-	http: {
-		host: string;
-		port: number;
-	};
+  http: {
+    host: string;
+    port: number;
+    cors?: boolean | CorsOptions;
+  };
 };
 
 const server = makeModule(
-	"server",
-	async ({
-		app: { onBooted, onReady },
-		container,
-		config: { cli, http, environment },
-		logger,
-	}) => {
-		const { register } = container;
-		const server = express();
+  'server',
+  async ({ app: { onBooted, onReady }, container, config: { cli, http, environment }, logger }) => {
+    const { register } = container;
+    const server = express();
 
-		const httpServer = createServer(server);
+    const httpServer = createServer(server);
 
-		const { shutdownHook, shutdownHandler } = gracefulShutdown(httpServer);
+    const { shutdownHook, shutdownHandler } = gracefulShutdown(httpServer);
 
-		server.use(shutdownHandler());
-		server.use(requestId());
-		server.use(requestContainer(container));
-		server.use(httpLogger());
-		server.use(json());
-		server.use(urlencoded({ extended: false }));
+    server.use((req, res, next) => {
+      res[reqStartTimeKey] = Date.now();
 
-		const rootRouter = Router();
-		const apiRouter = Router();
+      next();
+    });
 
-		rootRouter.use("/api", apiRouter);
+    server.use(shutdownHandler());
 
-		server.use(rootRouter);
+    if (http.cors) {
+      server.use(cors(typeof http.cors !== 'boolean' ? http.cors : {}));
+    }
 
-		onBooted(async () => {
-			server.use((req, res) => {
-				res.sendStatus(404);
-			});
+    server.use(httpLogger());
+    server.use(requestContainer(container));
+    server.use(helmet());
+    server.use(json());
+    server.use(urlencoded({ extended: false }));
 
-			server.use(errorHandler(errorConverters, { logger }));
-		});
+    const rootRouter = Router();
+    const apiRouter = Router();
 
-		if (!cli && environment !== "test") {
-			onReady(
-				async () =>
-					new Promise<void>((resolve) => {
-						httpServer.listen(http.port, http.host, () => {
-							logger.info(
-								`Webserver listening at: http://${http.host}:${http.port}`
-							);
-							resolve();
-						});
-					})
-			);
-		}
+    rootRouter.get('/status', statusHandler);
+    rootRouter.use('/api', apiRouter);
 
-		register({
-			server: asValue(server),
-			rootRouter: asValue(rootRouter),
-			apiRouter: asValue(apiRouter),
-		});
+    server.use(rootRouter);
 
-		return async () => {
-			await shutdownHook();
-		};
-	}
+    onBooted(async () => {
+      server.use((_, res) => {
+        res.sendStatus(404);
+      });
+
+      server.use(errorHandler(errorConverters, { logger }));
+    });
+
+    if (!cli && environment !== 'test') {
+      onReady(
+        async () =>
+          new Promise<void>((resolve) => {
+            httpServer.listen(http.port, http.host, () => {
+              logger.info(`Webserver listening at: http://${http.host}:${http.port}`);
+              resolve();
+            });
+          })
+      );
+    }
+
+    register({
+      requestId: asValue(undefined),
+      server: asValue(server),
+      httpServer: asValue(httpServer),
+      rootRouter: asValue(rootRouter),
+      apiRouter: asValue(apiRouter),
+    });
+
+    return async () => {
+      await shutdownHook();
+    };
+  }
 );
 
 type ServerRegistry = {
-	requestId?: string;
-	server: Application;
-	rootRouter: Router;
-	apiRouter: Router;
+  requestId?: string;
+  server: Application;
+  httpServer: Server;
+  rootRouter: Router;
+  apiRouter: Router;
 };
 
 export { server };

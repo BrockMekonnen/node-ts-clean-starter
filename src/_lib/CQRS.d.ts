@@ -1,6 +1,6 @@
 type Sort = Readonly<{
 	field: string;
-	direction: "asc" | "desc";
+	direction: 'asc' | 'desc';
 }>;
 
 type Pagination = Readonly<{
@@ -21,11 +21,11 @@ type Filter = Record<string, any>;
 
 type Query<F = void> = F extends Filter
 	? Readonly<{
-			filter: F;
-	  }>
+		filter: F;
+	}>
 	: never;
 
-type PaginatedQuery =
+type PaginatedQuery<F = void> = Query<F> &
 	Readonly<{
 		pagination: Pagination;
 	}>;
@@ -50,16 +50,6 @@ type PaginatedQueryResult<T> = QueryResult<T> &
 		page: ResultPage;
 	}>;
 
-type QueryHandler<P extends Query<any> | void, R extends QueryResult<any>> = (
-	payload: P
-) => Promise<R>;
+type QueryHandler<P extends Query<any> | void, R extends QueryResult<any>> = (payload: P) => Promise<R>;
 
-export {
-	Query,
-	PaginatedQuery,
-	SortedQuery,
-	SortedPaginatedQuery,
-	QueryResult,
-	PaginatedQueryResult,
-	QueryHandler,
-};
+export { Query, PaginatedQuery, SortedQuery, SortedPaginatedQuery, QueryResult, PaginatedQueryResult, QueryHandler };

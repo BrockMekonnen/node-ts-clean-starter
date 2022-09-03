@@ -5,46 +5,40 @@ import {
 	initUserCollection,
 	UserCollection,
 } from "./infrastructure/UserCollection";
-import { userMessages } from "./messages";
 import { makeMongoUserRepository } from "./infrastructure/UserRepositoryMongo";
-import { CreateUser, makeCreateUser } from "./app/useCases/CreateUser";
-import { GetUser, makeGetUser } from "./app/useCases/GetUser";
-import { ListUser, makeListUser } from "./app/useCases/ListUsers";
+import { CreateUser, makeCreateUser } from "./app/usecases/CreateUser";
+import { GetUser, makeGetUser } from "./app/usecases/GetUser";
 import { UserRepository } from "./domain/UserRepository";
 import { makeModule } from "@/context";
 import { makeUserController } from "./interface/routes";
+import { FindUsers } from "./app/query/FindUsers";
+import { makeMongoFindUsers } from "./infrastructure/FindUsersMongo";
 
 type UserRegistry = {
 	userCollection: UserCollection;
 	userRepository: UserRepository;
 	createUser: CreateUser;
 	getUser: GetUser;
-	listUsers: ListUser;
+	findUsers: FindUsers;
 };
 
-const userModule = makeModule(
-	"user",
-	async ({
-		container: { register, build },
-		messageBundle: { updateBundle },
-	}) => {
-		const collections = await build(
+const userModule = makeModule("user",
+	async ({ container: { register }, initialize }) => {
+		const [collections] = await initialize(
 			withMongoProvider({
 				userCollection: initUserCollection,
 			})
 		);
-
-		updateBundle(userMessages);
 
 		register({
 			...toContainerValues(collections),
 			userRepository: asFunction(makeMongoUserRepository),
 			createUser: asFunction(makeCreateUser),
 			getUser: asFunction(makeGetUser),
-			listUsers: asFunction(makeListUser),
+			findUsers: asFunction(makeMongoFindUsers),
 		});
 
-		build(makeUserController);
+		await initialize(makeUserController);
 	}
 );
 

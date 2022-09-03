@@ -1,7 +1,7 @@
-import { Event } from "@/_lib/events/Event";
+import { Event } from '@/_lib/events/Event';
 
 type Publisher = {
-	publish: <T extends Event<any>>(event: T) => Promise<void>;
+  publish: <T extends Event<any>>(event: T) => Promise<void>;
 };
 
 export { Publisher };

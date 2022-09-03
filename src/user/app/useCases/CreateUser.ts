@@ -13,7 +13,7 @@ type CreateUserDTO = Readonly<{
 	phone: string;
 	password: string;
 	gender: string;
-	role: string[];
+	roles: string[];
 }>;
 
 type CreateUser = ApplicationService<CreateUserDTO, string>;
@@ -31,7 +31,7 @@ const makeCreateUser =
 			email: payload.email,
 			password: payload.password,
 			gender: payload.gender,
-			role: payload.role,
+			roles: payload.roles,
 		});
 
 		await userRepository.store(user);

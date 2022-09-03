@@ -1,4 +1,4 @@
-import { connect, Socket } from 'net';
+import { connect } from 'net';
 
 const main = () => {
   const { argv } = process;
@@ -17,7 +17,7 @@ const main = () => {
 
   const sock = connect(port, host);
 
-  process.stdin.pipe(sock)
+  process.stdin.pipe(sock);
   sock.pipe(process.stdout);
 
   sock.on('connect', function () {

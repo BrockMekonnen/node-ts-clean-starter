@@ -1,5 +1,4 @@
 import { AuthRepository } from "@/auth/domain/AuthRepository";
-import { useBundle } from "@/messages";
 import { UserRepository } from "@/user/domain/UserRepository";
 import { ApplicationService } from "@/_lib/DDD";
 import { BusinessError } from "@/_sharedKernel/domain/error/BusinessError";
@@ -10,25 +9,35 @@ type Dependencies = {
 };
 
 type LoginParams = {
-	phone: string;
+	email: string;
 	password: string;
 };
 
-type GenerateToken = ApplicationService<LoginParams, string>;
+type TokenAndUser = {
+	token: string;
+	// user: User.Type
+}
+
+type GenerateToken = ApplicationService<LoginParams, TokenAndUser>;
 
 const makeGenerateToken =
 	({ authRepository, userRepository }: Dependencies): GenerateToken =>
-	async (payload) => {
-		const user = await userRepository.findByPhone(payload.phone);
+		async (payload) => {
+			const user = await userRepository.findByEmail(payload.email);
 
-		if (!user) {
-			throw BusinessError.create(
-				useBundle("auth.error.badCredentials", { phone: payload.phone })
-			);
-		}
+			if (!user) {
+				throw BusinessError.create(
+					// useBundle("auth.error.badCredentials", { phone: payload.email })
+					`Bad Credentials phone or password is not correct`
+				);
+			}
 
-		return authRepository.generate({ uid: user.id.value, scope: user.role });
-	};
+			const token = await authRepository.generate({ uid: user.id.value, scope: user.roles });
+
+			return {
+				token: token,
+			};
+		};
 
 export { makeGenerateToken };
 export type { GenerateToken };
