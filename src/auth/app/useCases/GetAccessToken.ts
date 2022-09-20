@@ -27,7 +27,6 @@ const makeGenerateToken =
 
 			if (!user) {
 				throw BusinessError.create(
-					// useBundle("auth.error.badCredentials", { phone: payload.email })
 					`Bad Credentials phone or password is not correct`
 				);
 			}

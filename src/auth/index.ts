@@ -6,7 +6,7 @@ import {
 } from "./app/usecases/GetAccessToken";
 import { makeVerifyToken, VerifyToken } from "./app/usecases/VerifyAccessToken";
 import { AuthRepository } from "./domain/AuthRepository";
-import { makeJWTAuthRepository } from "./infrastructure/JWTAuthRepository";
+import { makeJWTAuthRepository } from "./infrastructure/AuthRepository";
 import { makeAuthController } from "./interface/routes";
 import { HasRole, makeScope } from "./app/usecases/AccessScope";
 

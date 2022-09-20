@@ -1,17 +1,16 @@
 @baseUrl = http://127.0.0.1:3000/api
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2YmQ4MTUxMC04YTA4LTRiNTAtYmNmNS1iODRmNGE4N2U4NmIiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NjIxOTE4NDd9.x8hZEgVPAO284_d-SqeAy5hgfq9Iuk-Gr60SyuF5fXo
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0ZmE5YzMwZS0wZjFlLTRjZDctYjNjYi00YWQxYmYxNWVlNTgiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NjM0MDYzNDl9.hus6mVYTTKyA2rGuKIWJxfKd5aPL2X_lKJi-h3bT3TI
 ###
 POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-    "firstName": "Jane",
-    "lastName": "Doe",
-    "phone": "110-110-110",
-    "email": "janedoe@test.com",
+    "firstName": "test",
+    "lastName": "data25",
+    "phone": "985585425",
+    "email": "testdata25@test.com",
     "password": "test@test",
-    "gender": "Female",
-    "roles": ["Employee"]
+	"isTermAndConditionAgreed": true
 }
 
 ###
@@ -19,5 +18,21 @@ GET {{baseUrl}}/users/me
 Authorization: {{token}}
 
 ### 
-GET {{baseUrl}}/users
+GET {{baseUrl}}/users?page=2&limit=20
 Authorization: {{token}}
+
+###
+POST {{baseUrl}}/users/me/send-otp
+Content-Type: application/json
+
+{
+	"email": "testdata25@test.com"
+}
+###
+POST {{baseUrl}}/users/me/verify-email
+Content-Type: application/json
+
+{
+	"code": "168980",
+	"email": "testdata25@test.com"
+}

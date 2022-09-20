@@ -6,14 +6,13 @@ type UserListItemDTO = Readonly<{
 	lastName: string;
 	phone: string;
 	email: string;
-	gender: string;
+	isEmailVerified: boolean;
 	roles: string[];
 }>
 
 type UserFilter = {
 	firstName: string;
 	lastName: string;
-	gender: string;
 }
 
 type FindUsers = QueryHandler<SortedPaginatedQuery<UserFilter>, 

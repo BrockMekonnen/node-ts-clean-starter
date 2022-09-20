@@ -7,19 +7,27 @@ import {
 } from "./infrastructure/UserCollection";
 import { makeMongoUserRepository } from "./infrastructure/UserRepositoryMongo";
 import { CreateUser, makeCreateUser } from "./app/usecases/CreateUser";
-import { GetUser, makeGetUser } from "./app/usecases/GetUser";
 import { UserRepository } from "./domain/UserRepository";
 import { makeModule } from "@/context";
 import { makeUserController } from "./interface/routes";
 import { FindUsers } from "./app/query/FindUsers";
 import { makeMongoFindUsers } from "./infrastructure/FindUsersMongo";
+import { makeOTPSentListener } from "./interface/email/OTPSentListener";
+import { GetOTP, makeGetOTP } from "./app/usecases/GetOTP";
+import { makeSendOTPToEmail, SendOTPToEmail } from "./app/usecases/SendOTPToEmail";
+import { makeVerifyEmailWithOTP, VerifyEmailWithOTP } from "./app/usecases/VerifyEmailWithOTP";
+import { FindUserById } from '@/user/app/query/FindUserById';
+import { makeMongoFindUserById } from "./infrastructure/FindUserByIdMongo";
 
 type UserRegistry = {
 	userCollection: UserCollection;
 	userRepository: UserRepository;
 	createUser: CreateUser;
-	getUser: GetUser;
+	findUserById: FindUserById;
 	findUsers: FindUsers;
+	getOTP: GetOTP;
+	sendOTPToEmail: SendOTPToEmail;
+	verifyEmailWithOTP: VerifyEmailWithOTP;
 };
 
 const userModule = makeModule("user",
@@ -34,11 +42,14 @@ const userModule = makeModule("user",
 			...toContainerValues(collections),
 			userRepository: asFunction(makeMongoUserRepository),
 			createUser: asFunction(makeCreateUser),
-			getUser: asFunction(makeGetUser),
+			findUserById: asFunction(makeMongoFindUserById),
 			findUsers: asFunction(makeMongoFindUsers),
+			getOTP: asFunction(makeGetOTP),
+			sendOTPToEmail: asFunction(makeSendOTPToEmail),
+			verifyEmailWithOTP: asFunction(makeVerifyEmailWithOTP),
 		});
 
-		await initialize(makeUserController);
+		await initialize(makeUserController, makeOTPSentListener);
 	}
 );
 

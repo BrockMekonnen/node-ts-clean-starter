@@ -41,7 +41,7 @@ const makeMongoUserRepository = ({ userCollection }: Dependencies): UserReposito
 
 		if (count) {
 			await userCollection.updateOne(
-				{ _id, version, deleted: false },
+				{ _id, version },
 				{
 					$set: {
 						...data,

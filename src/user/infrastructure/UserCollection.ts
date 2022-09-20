@@ -1,3 +1,4 @@
+import { OTPSchema } from "@/_sharedKernel/domain/entity/OTP";
 import { Collection, Db } from "mongodb";
 import { MUUID } from "uuid-mongodb";
 
@@ -8,8 +9,9 @@ type UserSchema = {
 	phone: string;
 	email: string;
 	password: string;
-	gender: string;
 	roles: string[];
+	otp?: OTPSchema;
+	isEmailVerified: boolean;
 	createdAt: Date;
 	updatedAt: Date;
 	version: number;

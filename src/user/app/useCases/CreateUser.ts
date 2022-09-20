@@ -1,6 +1,8 @@
 import { User } from "@/user/domain/User";
 import { UserRepository } from "@/user/domain/UserRepository";
 import { ApplicationService } from "@/_lib/DDD";
+import { SendOTPEvent } from '@/user/app/events/SendOTPEvent';
+import { eventProvider } from "@/_lib/pubSub/EventEmitterProvider";
 
 type Dependencies = {
 	userRepository: UserRepository;
@@ -12,32 +14,34 @@ type CreateUserDTO = Readonly<{
 	email: string;
 	phone: string;
 	password: string;
-	gender: string;
-	roles: string[];
+	isTermAndConditionAgreed: boolean;
 }>;
 
 type CreateUser = ApplicationService<CreateUserDTO, string>;
 
-const makeCreateUser =
-	({ userRepository }: Dependencies): CreateUser =>
-	async (payload) => {
-		const id = await userRepository.getNextId();
+const makeCreateUser = eventProvider<Dependencies, CreateUser>(
+	({ userRepository }, enqueue): CreateUser =>
+		async (payload) => {
+			const id = await userRepository.getNextId();
 
-		const user = User.create({
-			id,
-			firstName: payload.firstName,
-			lastName: payload.lastName,
-			phone: payload.phone,
-			email: payload.email,
-			password: payload.password,
-			gender: payload.gender,
-			roles: payload.roles,
-		});
+			const user = User.create({
+				id,
+				firstName: payload.firstName,
+				lastName: payload.lastName,
+				phone: payload.phone,
+				email: payload.email,
+				password: payload.password,
+			});
 
-		await userRepository.store(user);
+			await userRepository.store(user);
 
-		return id.value;
-	};
+			enqueue(SendOTPEvent.create(user.email, "Verification"));
+
+			return id.value;
+		}
+)
 
 export { makeCreateUser };
 export type { CreateUser };
+
+

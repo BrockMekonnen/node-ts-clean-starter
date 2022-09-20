@@ -17,8 +17,7 @@ const { getBody } = makeValidator({
 		phone: Joi.string().required(),
 		email: Joi.string().required(),
 		password: Joi.string().required(),
-		gender: Joi.string().valid('Male', 'Female').required(),
-		roles: Joi.array().items(Joi.string()).required(),
+		isTermAndConditionAgreed: Joi.boolean().required(),
 	}).required(),
 });
 
@@ -31,8 +30,7 @@ const createUserHandler = handler(
 				phone,
 				email,
 				password,
-				gender,
-				roles,
+				isTermAndConditionAgreed,
 			} = getBody(req);
 
 			const userId = await createUser({
@@ -41,8 +39,7 @@ const createUserHandler = handler(
 				phone,
 				email,
 				password,
-				gender,
-				roles,
+				isTermAndConditionAgreed,
 			});
 
 			res.status(HttpStatus.CREATED).json({ id: userId });

@@ -20,7 +20,6 @@ const makeVerifyToken =
 
 			if (!decoded) {
 				throw BusinessError.create(
-					// useBundle("auth.error.invalidToken", { token: payload })
 					`Authentication Error Invalid Token`
 				);
 			}

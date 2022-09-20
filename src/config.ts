@@ -13,6 +13,7 @@ const config: Configuration = {
 	http: {
 		host: envString('HOST', '127.0.0.1'),
 		port: envNumber('PORT', 3000),
+		cors: true,
 	},
 	swagger: {
 		title: 'Template API',

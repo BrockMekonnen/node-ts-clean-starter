@@ -1,20 +1,20 @@
-import { GetUser } from "@/user/app/usecases/GetUser";
+import { FindUserById } from "@/user/app/query/FindUserById";
 import { handler } from "@/_lib/http/handler";
 import { Request, Response } from "express";
 
 type Dependencies = {
-	getUser: GetUser;
+	findUserById: FindUserById;
 };
 
 const getUserHandler = handler(
-	({ getUser }: Dependencies) =>
+	({ findUserById }: Dependencies) =>
 		async (req: Request, res: Response) => {
-			// const { userId } = req.params;
+
 			const userId = req.auth.credentials.uid;
 
-			const user = await getUser(userId);
+			const result = await findUserById({ filter: { id: userId } });
 
-			res.json(user);
+			res.json(result);
 		}
 );
 

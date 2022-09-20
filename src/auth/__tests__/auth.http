@@ -1,12 +1,12 @@
 @baseUrl = http://localhost:3000/api
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2YmQ4MTUxMC04YTA4LTRiNTAtYmNmNS1iODRmNGE4N2U4NmIiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NjIxOTE4NDd9.x8hZEgVPAO284_d-SqeAy5hgfq9Iuk-Gr60SyuF5fXo
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0ZmE5YzMwZS0wZjFlLTRjZDctYjNjYi00YWQxYmYxNWVlNTgiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NjM0MDYzNDl9.hus6mVYTTKyA2rGuKIWJxfKd5aPL2X_lKJi-h3bT3TI
 
 ###
 POST {{baseUrl}}/users/login
 Content-Type: application/json
 
 {
-    "email": "janedoe@test.com",
+    "email": "testdata25@test.com",
     "password": "test@test"
 }
 

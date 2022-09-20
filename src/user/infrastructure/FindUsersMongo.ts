@@ -32,8 +32,8 @@ const makeMongoFindUsers = ({ userCollection }: Dependencies): FindUsers => asyn
 			lastName: user.lastName,
 			phone: user.phone,
 			email: user.email,
-			gender: user.gender,
 			roles: user.roles,
+			isEmailVerified: user.isEmailVerified,
 		})),
 		page: {
 			totalPages,
