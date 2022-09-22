@@ -5,8 +5,8 @@ import { createUserHandler } from "../controllers/CreateUserHandler";
 import { getUserHandler } from "../controllers/GetUserHandler";
 import { listUsersHandler } from "../controllers/FindUsersHandler";
 import { sendOTPToEmailHandler } from "../controllers/SendOTPToEmailHandler";
-import { makeVerifyEmailWithOTP } from "@/user/app/usecases/VerifyEmailWithOTP";
 import { verifyEmailHandler } from "../controllers/VerifyEmail";
+import { resetPasswordHandler } from "../controllers/ResetPasswordHandler";
 
 type Dependencies = {
 	apiRouter: Router;
@@ -18,7 +18,9 @@ const makeUserController = ({ apiRouter }: Dependencies) => {
 	router.get("/users", verifyTokenHandler, Scope(['Employee', 'Admin']), listUsersHandler);
 	router.post("/users", createUserHandler);
 	router.get("/users/me", verifyTokenHandler, getUserHandler);
-	router.post("/users/me/send-otp", sendOTPToEmailHandler);
+	router.post("/users/send-otp", sendOTPToEmailHandler('Verification'));
+	router.post("/users/forget-password", sendOTPToEmailHandler('Forget'));
+	router.post("/users/reset-password", resetPasswordHandler);
 	router.post("/users/me/verify-email", verifyEmailHandler);
 	router.get("/users/:userId", verifyTokenHandler, getUserHandler);
 

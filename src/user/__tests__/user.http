@@ -28,6 +28,14 @@ Content-Type: application/json
 {
 	"email": "testdata25@test.com"
 }
+
+###
+POST {{baseUrl}}/users/forget-password
+Content-Type: application/json
+
+{
+	"email": "janedoe@test.com"
+}
 ###
 POST {{baseUrl}}/users/me/verify-email
 Content-Type: application/json
@@ -35,4 +43,14 @@ Content-Type: application/json
 {
 	"code": "168980",
 	"email": "testdata25@test.com"
+}
+
+###
+POST {{baseUrl}}/users/reset-password
+Content-Type: application/json
+
+{
+	"code": "747507",
+	"email": "janedoe@test.com",
+	"password": "test@test"
 }

@@ -59,6 +59,13 @@ namespace User {
 		};
 	});
 
+	export const changePassword = withInvariants(
+		(self: User, newPassword: string): User => ({
+			...self,
+			password: newPassword,
+		})
+	);
+
 	export const markAsEmailVerified = withInvariants(function (
 		self: User
 	): User {

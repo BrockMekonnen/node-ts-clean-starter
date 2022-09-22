@@ -12,15 +12,18 @@ const { getBody } = makeValidator({
 	body: Joi.object({
 		email: Joi.string().required(),
 	}).required(),
-})
+});
 
-const sendOTPToEmailHandler = handler(({ sendOTPToEmail}: Dependencies) => 
-	async (req, res) => {
-		let { email } = getBody(req);
 
-		await sendOTPToEmail({ email, otpFor: 'Verification'});
 
-		res.status(HttpStatus.OK).send();
-	});
+const sendOTPToEmailHandler = (otpFor: 'Forget' | 'Verification' | '2FA') =>
+	handler(({ sendOTPToEmail }: Dependencies) =>
+		async (req, res) => {
+			let { email } = getBody(req);
+
+			await sendOTPToEmail({ email, otpFor: otpFor });
+
+			res.status(HttpStatus.OK).send();
+		});
 
 export { sendOTPToEmailHandler };

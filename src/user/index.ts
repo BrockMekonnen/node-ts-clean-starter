@@ -18,6 +18,7 @@ import { makeSendOTPToEmail, SendOTPToEmail } from "./app/usecases/SendOTPToEmai
 import { makeVerifyEmailWithOTP, VerifyEmailWithOTP } from "./app/usecases/VerifyEmailWithOTP";
 import { FindUserById } from '@/user/app/query/FindUserById';
 import { makeMongoFindUserById } from "./infrastructure/FindUserByIdMongo";
+import { makeResetPassword, ResetPassword } from "./app/usecases/ResetPassword";
 
 type UserRegistry = {
 	userCollection: UserCollection;
@@ -28,6 +29,7 @@ type UserRegistry = {
 	getOTP: GetOTP;
 	sendOTPToEmail: SendOTPToEmail;
 	verifyEmailWithOTP: VerifyEmailWithOTP;
+	resetPassword: ResetPassword;
 };
 
 const userModule = makeModule("user",
@@ -47,6 +49,7 @@ const userModule = makeModule("user",
 			getOTP: asFunction(makeGetOTP),
 			sendOTPToEmail: asFunction(makeSendOTPToEmail),
 			verifyEmailWithOTP: asFunction(makeVerifyEmailWithOTP),
+			resetPassword: asFunction(makeResetPassword),
 		});
 
 		await initialize(makeUserController, makeOTPSentListener);
