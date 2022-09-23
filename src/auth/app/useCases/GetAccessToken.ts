@@ -15,7 +15,6 @@ type LoginParams = {
 
 type TokenAndUser = {
 	token: string;
-	// user: User.Type
 }
 
 type GenerateToken = ApplicationService<LoginParams, TokenAndUser>;
@@ -26,16 +25,18 @@ const makeGenerateToken =
 			const user = await userRepository.findByEmail(payload.email);
 
 			if (!user) {
-				throw BusinessError.create(
-					`Bad Credentials phone or password is not correct`
-				);
+				throw BusinessError.create('Incorrect Email.');
+			}
+
+			let isMatch = await authRepository.compare(payload.password, user.password);
+
+			if (!isMatch) {
+				throw BusinessError.create('Incorrect Password.');
 			}
 
 			const token = await authRepository.generate({ uid: user.id.value, scope: user.roles });
 
-			return {
-				token: token,
-			};
+			return { token: token };
 		};
 
 export { makeGenerateToken };

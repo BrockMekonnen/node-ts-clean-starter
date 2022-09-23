@@ -3,9 +3,11 @@ import { UserRepository } from "@/user/domain/UserRepository";
 import { ApplicationService } from "@/_lib/DDD";
 import { SendOTPEvent } from '@/user/app/events/SendOTPEvent';
 import { eventProvider } from "@/_lib/pubSub/EventEmitterProvider";
+import { AuthRepository } from "@/auth/domain/AuthRepository";
 
 type Dependencies = {
 	userRepository: UserRepository;
+	authRepository: AuthRepository;
 };
 
 type CreateUserDTO = Readonly<{
@@ -20,9 +22,11 @@ type CreateUserDTO = Readonly<{
 type CreateUser = ApplicationService<CreateUserDTO, string>;
 
 const makeCreateUser = eventProvider<Dependencies, CreateUser>(
-	({ userRepository }, enqueue): CreateUser =>
+	({ userRepository, authRepository }, enqueue): CreateUser =>
 		async (payload) => {
 			const id = await userRepository.getNextId();
+
+			let hashedPassword = await authRepository.hash(payload.password);
 
 			const user = User.create({
 				id,
@@ -30,7 +34,7 @@ const makeCreateUser = eventProvider<Dependencies, CreateUser>(
 				lastName: payload.lastName,
 				phone: payload.phone,
 				email: payload.email,
-				password: payload.password,
+				password: hashedPassword,
 			});
 
 			await userRepository.store(user);
