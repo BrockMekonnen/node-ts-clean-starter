@@ -1,6 +1,7 @@
-import { HasRole } from "@/auth/app/usecases/AccessScope";
+
 import { ForbiddenError } from "@/_lib/errors/ForbiddenError";
 import { handler } from "@/_lib/http/handler";
+import { HasRole } from "@/auth/app/use_cases/AccessScope";
 import { NextFunction, Request, Response } from "express";
 
 type Dependencies = {

@@ -1,4 +1,4 @@
-import { SendOTPToEmail } from "@/user/app/usecases/SendOTPToEmail"
+import { SendOTPToEmail } from "@/user/app/use_cases/SendOTPToEmail"
 import { handler } from "@/_lib/http/handler";
 import { HttpStatus } from "@/_lib/http/HttpStatus";
 import { makeValidator } from "@/_lib/http/validation/Validator";

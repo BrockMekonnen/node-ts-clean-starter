@@ -1,4 +1,4 @@
-import { ResetPassword } from "@/user/app/usecases/ResetPassword";
+import { ResetPassword } from "@/user/app/use_cases/ResetPassword";
 import { handler } from "@/_lib/http/handler";
 import { HttpStatus } from "@/_lib/http/HttpStatus";
 import { makeValidator } from "@/_lib/http/validation/Validator";

@@ -44,7 +44,7 @@ const makeREPL = ({ context, prompt, cli, remote, logger }: REPLProps): REPLInst
     return repl;
   };
 
-  let destroySocket: Socket['destroy'] = () => null;
+  let destroySocket: Socket['destroy'] | any = () => null;
 
   return {
     create,

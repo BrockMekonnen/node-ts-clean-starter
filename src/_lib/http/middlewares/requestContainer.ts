@@ -8,7 +8,7 @@ const requestContainer =
     const scopedContainer = container.createScope();
 
     scopedContainer.register({
-      requestId: asValue(req.id),
+      requestId: asValue(req.id) as any,
     });
 
     req.container = scopedContainer;

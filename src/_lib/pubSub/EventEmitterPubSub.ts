@@ -24,7 +24,7 @@ const makeEventEmitterPubSub = (): Publisher & Subscriber => {
           try {
             await handler(event);
           } catch (err) {
-            if (nackOn(err)) {
+            if (nackOn(err as any)) {
               throw err;
             }
 

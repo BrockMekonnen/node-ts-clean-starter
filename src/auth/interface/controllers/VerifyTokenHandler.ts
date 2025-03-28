@@ -1,4 +1,4 @@
-import { VerifyToken } from "@/auth/app/usecases/VerifyAccessToken";
+import { VerifyToken } from "@/auth/app/use_cases/VerifyAccessToken";
 import { BadRequestError } from "@/_lib/errors/BadRequestError";
 import { handler } from "@/_lib/http/handler";
 import { NextFunction, Request, Response } from "express";

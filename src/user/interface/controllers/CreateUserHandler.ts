@@ -1,5 +1,5 @@
 
-import { CreateUser } from "@/user/app/usecases/CreateUser";
+import { CreateUser } from "@/user/app/use_cases/CreateUser";
 import { handler } from "@/_lib/http/handler";
 import { HttpStatus } from "@/_lib/http/HttpStatus";
 import { makeValidator } from "@/_lib/http/validation/Validator";

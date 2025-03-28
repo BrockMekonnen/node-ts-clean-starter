@@ -3,12 +3,12 @@ import { makeModule } from "@/context";
 import {
 	GenerateToken,
 	makeGenerateToken,
-} from "./app/usecases/GetAccessToken";
-import { makeVerifyToken, VerifyToken } from "./app/usecases/VerifyAccessToken";
+} from "./app/use_cases/GetAccessToken";
+import { makeVerifyToken, VerifyToken } from "./app/use_cases/VerifyAccessToken";
 import { AuthRepository } from "./domain/AuthRepository";
 import { makeJWTAuthRepository } from "./infrastructure/AuthRepository";
 import { makeAuthController } from "./interface/routes";
-import { HasRole, makeScope } from "./app/usecases/AccessScope";
+import { HasRole, makeScope } from "./app/use_cases/AccessScope";
 
 type AuthRegistry = {
 	authRepository: AuthRepository;

@@ -1,5 +1,5 @@
 @baseUrl = http://127.0.0.1:3000/api
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI0ZmE5YzMwZS0wZjFlLTRjZDctYjNjYi00YWQxYmYxNWVlNTgiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE2NjM0MDYzNDl9.hus6mVYTTKyA2rGuKIWJxfKd5aPL2X_lKJi-h3bT3TI
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI4Nzg0NmY4MS0yMTJhLTRjMWMtODhlZC04OGNkZGE4NjAxM2YiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE3NDMxNjk1MDV9.6o5bXT906Ls9i38Vs0IFLZYK6fLTjLV34t4Jvmg6ds8
 ###
 POST {{baseUrl}}/users
 Content-Type: application/json
@@ -18,7 +18,7 @@ GET {{baseUrl}}/users/me
 Authorization: {{token}}
 
 ### 
-GET {{baseUrl}}/users?page=2&limit=20
+GET {{baseUrl}}/users?page=1&limit=20
 Authorization: {{token}}
 
 ###

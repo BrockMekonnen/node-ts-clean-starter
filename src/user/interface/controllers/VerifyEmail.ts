@@ -1,4 +1,4 @@
-import { VerifyEmailWithOTP } from "@/user/app/usecases/VerifyEmailWithOTP"
+import { VerifyEmailWithOTP } from "@/user/app/use_cases/VerifyEmailWithOTP"
 import { handler } from "@/_lib/http/handler";
 import { makeValidator } from "@/_lib/http/validation/Validator";
 import Joi from "types-joi"

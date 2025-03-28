@@ -22,12 +22,14 @@ const config: Configuration = {
 		docEndpoint: '/api-docs',
 	},
 	mongodb: {
-		database: envString('DB_NAME', 'blog'),
+		database: envString('DB_NAME', 'clean-starter'),
 		host: envString('DB_HOST', 'mongodb://127.0.0.1:27017'),
-		username: envString('DB_USER', 'blog'),
-		password: envString('DB_PASS', 'blog'),
+		username: envString('DB_USER', 'clean-starter'),
+		password: envString('DB_PASS', 'clean-starter'),
 	},
 };
 
 export { config };
 export type { Configuration };
+
+
