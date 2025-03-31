@@ -1,5 +1,5 @@
 import { SendOTPEvent } from "@/user/app/events/SendOTPEvent";
-import { GetOTP } from "@/user/app/use_cases/GetOTP"
+import { GetOTP } from "@/user/app/usecase/GetOTP"
 import { eventConsumer } from "@/_lib/pubSub/EventEmitterConsumer";
 import { Logger } from "pino";
 import nodemailer from "nodemailer";

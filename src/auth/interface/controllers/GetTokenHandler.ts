@@ -1,4 +1,4 @@
-import { GenerateToken } from "@/auth/app/use_cases/GetAccessToken";
+import { GenerateToken } from "@/auth/app/usecase/GetAccessToken";
 import { handler } from "@/_lib/http/handler";
 import { HttpStatus } from "@/_lib/http/HttpStatus";
 import { makeValidator } from "@/_lib/http/validation/Validator";
