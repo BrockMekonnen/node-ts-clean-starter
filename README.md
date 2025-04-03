@@ -39,4 +39,3 @@ npm run build
 
 
 This starter provides a solid foundation for building scalable and maintainable Node.js APIs with TypeScript.
-

@@ -11,7 +11,7 @@ const config: Configuration = {
 		port: envNumber('REPL_PORT', 2580),
 	},
 	http: {
-		host: envString('HOST', '127.0.0.1'),
+		host: envString('HOST', '0.0.0.0'),
 		port: envNumber('PORT', 3000),
 		cors: true,
 	},
@@ -22,10 +22,10 @@ const config: Configuration = {
 		docEndpoint: '/api-docs',
 	},
 	mongodb: {
-		database: envString('DB_NAME', 'clean-starter'),
+		database: envString('DB_NAME', 'ts-clean-starter'),
 		host: envString('DB_HOST', 'mongodb://127.0.0.1:27017'),
-		username: envString('DB_USER', 'clean-starter'),
-		password: envString('DB_PASS', 'clean-starter'),
+		username: envString('DB_USER', 'root'),
+		password: envString('DB_PASS', 'example'),
 	},
 };
 

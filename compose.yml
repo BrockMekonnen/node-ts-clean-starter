@@ -1,0 +1,36 @@
+
+services:
+  app:
+    container_name: ts-clean-api
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - HOST=0.0.0.0  # To allow external connections
+      - DB_NAME=ts-clean-starter
+      - DB_HOST=mongodb://mongo:27017
+      - DB_USER=root
+      - DB_PASS=example
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    container_name: ts-clean-db
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+      - MONGO_INITDB_DATABASE=ts-clean-starter
+    command: [--auth]  # Enable authentication
+
+volumes:
+  npm_cache:
+  mongodb_data:
+  

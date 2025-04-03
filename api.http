@@ -1,0 +1,41 @@
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIyNmFiODNlMi1kNWRjLTRmODQtYjU0MS0wNDdjZjY4MzUzNjEiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE3NDM3MTAyMzR9.vW9serREHc6u-NnchAvoI9A4vKMiaH69i5o_H2jA9pI
+@baseUrl = http://0.0.0.0:3000
+
+
+###
+GET {{baseUrl}}/status
+
+###
+POST {{baseUrl}}/api/users/login
+Content-Type: application/json
+
+
+{
+	"email": "janedoe@test.com",
+	"password": "test@test"
+}
+
+###
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+	"firstName": "Jane",
+	"lastName": "Doe",
+	"phone": "+1 123 456 7890",
+	"email": "janedoe@test.com",
+	"password": "test@test",
+	"isTermAndConditionAgreed": true
+}
+
+###
+GET {{baseUrl}}/api/users/26ab83e2-d5dc-4f84-b541-047cf6835361
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+GET {{baseUrl}}/api/users
+Content-Type: application/json
+Authorization: {{token}}
+
+
