@@ -1,9 +1,9 @@
 import { User } from "@/user/domain/User";
 import { UserRepository } from "@/user/domain/UserRepository"
 import { ApplicationService } from "@/_lib/DDD";
-import { OTP } from "@/_sharedKernel/domain/entity/OTP";
+import { OTP } from "@/_shared/domain/entity/OTP";
 import dayjs from "dayjs";
-import { BusinessError } from '@/_sharedKernel/domain/error/BusinessError';
+import { BusinessError } from '@/_shared/domain/error/BusinessError';
 
 type Dependencies = {
 	userRepository: UserRepository;

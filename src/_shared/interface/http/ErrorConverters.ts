@@ -5,7 +5,7 @@ import { NotFoundError } from '@/_lib/errors/NotFoundError';
 import { HttpStatus } from '@/_lib/http/HttpStatus';
 import { UnauthorizedError } from '@/_lib/errors/UnauthorizedError';
 import { ForbiddenError } from '@/_lib/errors/ForbiddenError';
-import { BusinessError } from '@/_sharedKernel/domain/error/BusinessError';
+import { BusinessError } from '@/_shared/domain/error/BusinessError';
 import { BadRequestError } from '@/_lib/errors/BadRequestError';
 
 const errorConverters = [

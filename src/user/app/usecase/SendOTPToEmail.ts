@@ -1,7 +1,7 @@
 import { UserRepository } from "@/user/domain/UserRepository"
 import { ApplicationService } from "@/_lib/DDD";
 import { eventProvider } from "@/_lib/pubSub/EventEmitterProvider";
-import { BusinessError } from "@/_sharedKernel/domain/error/BusinessError";
+import { BusinessError } from "@/_shared/domain/error/BusinessError";
 import { SendOTPEvent } from "../events/SendOTPEvent";
 
 type Dependencies = {

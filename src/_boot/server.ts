@@ -4,7 +4,7 @@ import { gracefulShutdown } from '@/_lib/http/middlewares/gracefulShutdown';
 import { httpLogger, reqStartTimeKey } from '@/_lib/http/middlewares/httpLogger';
 import { requestContainer } from '@/_lib/http/middlewares/requestContainer';
 import { statusHandler } from '@/_lib/http/middlewares/statusHandler';
-import { errorConverters } from '@/_sharedKernel/interface/http/ErrorConverters';
+import { errorConverters } from '@/_shared/interface/http/ErrorConverters';
 import { asValue } from 'awilix';
 import cors, { CorsOptions } from 'cors';
 import express, { Application, json, Router, urlencoded } from 'express';

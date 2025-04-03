@@ -1,4 +1,4 @@
-import { OTPSchema } from "@/_sharedKernel/domain/entity/OTP";
+import { OTPSchema } from "@/_shared/domain/entity/OTP";
 import { Collection, Db } from "mongodb";
 import { MUUID } from "uuid-mongodb";
 

@@ -1,6 +1,6 @@
 import { AggregateRoot } from "@/_lib/DDD";
 import { makeWithInvariants } from "@/_lib/WithInvariants";
-import { OTP } from "@/_sharedKernel/domain/entity/OTP";
+import { OTP } from "@/_shared/domain/entity/OTP";
 import { UserId } from "./UserId";
 
 namespace User {
