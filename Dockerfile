@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM node:18-alpine as builder
+FROM node:slim AS builder
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ COPY src ./src
 RUN npm run build
 
 # Stage 2: Create the production image
-FROM node:18-alpine
+FROM node:slim
 
 WORKDIR /app
 

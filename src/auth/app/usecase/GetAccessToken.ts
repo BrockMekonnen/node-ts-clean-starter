@@ -22,10 +22,11 @@ type GenerateToken = ApplicationService<LoginParams, TokenAndUser>;
 const makeGenerateToken =
 	({ authRepository, userRepository }: Dependencies): GenerateToken =>
 		async (payload) => {
-			const user = await userRepository.findByEmail(payload.email);
-
-			if (!user) {
-				throw BusinessError.create('Incorrect Email.');
+			let user;
+			try {
+				user = await userRepository.findByEmail(payload.email);
+			} catch (error) {
+				throw BusinessError.create("Incorrect email. No user found with this email address.");
 			}
 
 			let isMatch = await authRepository.compare(payload.password, user.password);

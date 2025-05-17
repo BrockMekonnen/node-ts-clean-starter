@@ -1,6 +1,7 @@
 import { from } from "uuid-mongodb";
 import { FindUserById } from "../app/query/FindUserById";
 import { UserCollection } from "./UserCollection";
+import { NotFoundError } from "@/_lib/errors/NotFoundError";
 
 type Dependencies = {
 	userCollection: UserCollection;
@@ -11,7 +12,7 @@ const makeMongoFindUserById = ({ userCollection }: Dependencies): FindUserById =
 		const user = await userCollection.findOne({ _id: from(filter.id) });
 
 		if (!user) {
-			throw new Error("User not found");
+			throw NotFoundError.create("User not found!")
 		}
 
 		return {

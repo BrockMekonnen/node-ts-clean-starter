@@ -15,7 +15,7 @@ const { getBody } = makeValidator({
 		firstName: Joi.string().required(),
 		lastName: Joi.string().required(),
 		phone: Joi.string().required(),
-		email: Joi.string().required(),
+		email: Joi.string().email().required(),
 		password: Joi.string().required(),
 		isTermAndConditionAgreed: Joi.boolean().required(),
 	}).required(),
@@ -37,7 +37,7 @@ const createUserHandler = handler(
 				firstName,
 				lastName,
 				phone,
-				email,
+				email: email.toLowerCase(),
 				password,
 				isTermAndConditionAgreed,
 			});

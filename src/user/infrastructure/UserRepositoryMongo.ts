@@ -5,6 +5,7 @@ import { UserRepository } from "../domain/UserRepository";
 import { UserCollection } from "./UserCollection";
 import { UserIdProvider } from "./UserIdProvider";
 import { UserMapper } from "./UserMapper";
+import { NotFoundError } from "@/_lib/errors/NotFoundError";
 
 type Dependencies = {
 	userCollection: UserCollection;
@@ -18,7 +19,7 @@ const makeMongoUserRepository = ({ userCollection }: Dependencies): UserReposito
 		const user = await userCollection.findOne({ _id: from(id) });
 
 		if (!user) {
-			throw new Error("User not found");
+			throw NotFoundError.create("User not found!")
 		}
 
 		return UserMapper.toEntity(user);
@@ -27,7 +28,16 @@ const makeMongoUserRepository = ({ userCollection }: Dependencies): UserReposito
 		const user = await userCollection.findOne({ phone });
 
 		if (!user) {
-			throw new Error("User not found");
+			throw NotFoundError.create("User not found!")
+		}
+
+		return UserMapper.toEntity(user);
+	},
+	async findByEmail(email: string): Promise<User.Type> {
+		const user = await userCollection.findOne({ email });
+
+		if (!user) {
+			throw NotFoundError.create("User not found!")
 		}
 
 		return UserMapper.toEntity(user);
@@ -60,15 +70,7 @@ const makeMongoUserRepository = ({ userCollection }: Dependencies): UserReposito
 			version,
 		});
 	},
-	async findByEmail(email): Promise<User.Type> {
-		const user = await userCollection.findOne({ email });
 
-		if (!user) {
-			throw new Error("User not found");
-		}
-
-		return UserMapper.toEntity(user);
-	},
 });
 
 export { makeMongoUserRepository };

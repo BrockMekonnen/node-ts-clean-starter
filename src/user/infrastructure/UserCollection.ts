@@ -23,6 +23,7 @@ const initUserCollection = async (db: Db): Promise<UserCollection> => {
 	const collection: UserCollection = db.collection("users");
 
 	await collection.createIndex({ phone: 1 }, { unique: true });
+	await collection.createIndex({ email: 1 }, { unique: true });
 
 	return collection;
 };
