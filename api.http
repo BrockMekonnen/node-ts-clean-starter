@@ -1,4 +1,4 @@
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIyNmFiODNlMi1kNWRjLTRmODQtYjU0MS0wNDdjZjY4MzUzNjEiLCJzY29wZSI6WyJFbXBsb3llZSJdLCJpYXQiOjE3NDM3MTAyMzR9.vW9serREHc6u-NnchAvoI9A4vKMiaH69i5o_H2jA9pI
+@token = Bearer 
 @baseUrl = http://0.0.0.0:3000
 
 
@@ -11,7 +11,7 @@ Content-Type: application/json
 
 
 {
-	"email": "janedoe@test.com",
+	"email": "janedoea@test.com",
 	"password": "test@test"
 }
 

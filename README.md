@@ -1,4 +1,4 @@
-# Clean Node TS API
+# Node TS Clean API
 
 This is a Node.js API template built with Clean Architecture using TypeScript. It follows a modular structure for scalability and maintainability.
 

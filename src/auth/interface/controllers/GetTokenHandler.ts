@@ -21,9 +21,9 @@ const generateTokenHandler = handler(
 		async (req: Request, res: Response) => {
 			const { email, password } = getBody(req);
 
-			const result = await generateToken({ email, password });
+			const token = await generateToken({ email, password });
 
-			res.status(HttpStatus.ACCEPTED).json(result);
+			res.status(HttpStatus.ACCEPTED).json({ 'data': token });
 		}
 );
 

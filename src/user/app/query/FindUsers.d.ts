@@ -15,7 +15,7 @@ type UserFilter = {
 	lastName: string;
 }
 
-type FindUsers = QueryHandler<SortedPaginatedQuery<UserFilter>, 
-PaginatedQueryResult<UserListItemDTO[]>>;
+type FindUsers = QueryHandler<SortedPaginatedQuery<UserFilter>,
+	PaginatedQueryResult<UserListItemDTO[]>>;
 
 export { FindUsers };
