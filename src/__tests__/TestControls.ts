@@ -2,14 +2,16 @@ import { Container, container } from '@/container';
 import { withContext } from '@/context';
 import { main } from '@/_boot';
 import { Db } from 'mongodb';
-import supertest, { SuperTest, Test } from 'supertest';
+import supertest from 'supertest';
+
+type TestAgent = ReturnType<typeof supertest>;
 
 type Dependencies = {
   mongo: Db;
 };
 
 type TestControls = Readonly<{
-  request: () => SuperTest<Test>;
+  request: () => TestAgent;
   clearDatabase: () => Promise<void>;
   cleanUp: () => Promise<void>;
   container: Container;
