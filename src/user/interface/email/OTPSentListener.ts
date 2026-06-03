@@ -52,7 +52,7 @@ const makeOTPSentListener = eventConsumer<SendOTPEvent.Type, Dependencies>(
 			try {
 				var transporter = nodemailer.createTransport({
 					host: "smtp.mailtrap.io",
-					port: "2525",
+					port: 2525,
 					auth: {
 						user: "21ba117401d319",
 						pass: "af03ec7ed0554b",
